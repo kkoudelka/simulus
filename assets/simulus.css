@@ -11,7 +11,13 @@ html, body {
 
 body {
     padding: 10px;
+    overflow: hidden;
 }
+
+.transparent {
+    opacity: 0.5;
+}
+
 #main {
     display: flex;
     align-items: flex-start; 
@@ -69,4 +75,11 @@ body {
     text-align: left;
     width: 40px;
     text-overflow: clip;
-}	
+}
+
+.animated-transitions {
+    -webkit-transition: all 0.1s ease;
+    -moz-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+}
