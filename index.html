@@ -9,7 +9,14 @@
     <meta charset=utf-8/>
     <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="./MDBootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="./MDBootstrap/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/simulus.css">
+    <link rel="stylesheet" href="assets/codemirror.css">
     <!--<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>-->
     <script type="text/javascript" src="./MDBootstrap/js/jquery-3.3.1.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -23,15 +30,13 @@
 
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="assets/simulus.js"></script>
+    <script src="assets/Vector.js"></script>
+    <script src="assets/logic.js"></script>
+    <script src="assets/navigation.js"></script>
+    <script src="assets/codemirror.js"></script>
+    <script src="assets/modes/javascript/javascript.js"></script>
     <script src="layout.js"></script>
     <script src="model.js"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <!-- Bootstrap core CSS -->
-    <link href="./MDBootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="./MDBootstrap/css/mdb.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/simulus.css">
 
 
 </head>
@@ -62,6 +67,90 @@
     </div>
 </div>
 <!-- Modal -->
+
+<!-- Modal -->
+<div class="modal fade right" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-full-height modal-lg  modal-right" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Settings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!--Accordion wrapper-->
+                <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+                    <!-- Accordion card -->
+                    <div class="card">
+
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="headingOne1">
+                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1"
+                               aria-expanded="true"
+                               aria-controls="collapseOne1">
+                                <h5 class="mb-0">
+                                    Variables <i class="fas fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <!-- Card body -->
+                        <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
+                             data-parent="#accordionEx">
+                            <div class="card-body">
+                                <textarea id="variables-textarea"></textarea>
+                            </div>
+                            <div class="card-footer">
+                                    <button class="btn btn-outline-primary" id="vars-save">Save</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Accordion card -->
+
+                    <!-- Accordion card -->
+                    <div class="card">
+
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="headingTwo2">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
+                               aria-expanded="false" aria-controls="collapseTwo2">
+                                <h5 class="mb-0">
+                                    Script <i class="fas fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <!-- Card body -->
+                        <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2"
+                             data-parent="#accordionEx">
+                            <div class="card-body">
+                                <textarea id="code-textarea"></textarea>
+
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-outline-primary" id="code-save">Save</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Accordion card -->
+
+                </div>
+                <!-- Accordion wrapper -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+
 <div id="chartContainer" style="width: 100vw; height: 90vh; "></div>
 
 <div id="draggable" class="card w-25 animated-transitions"
@@ -78,14 +167,14 @@
 </div>
 
 <div class="d-flex" style="position: absolute; bottom: 0; width: 90vw;">
-    <button class="btn btn-outline-primary" id="toggleSimulation">Play/Pause</button>
-    <button class="btn btn-outline-primary" id="stepSimulation">Step</button>
-    <button class="btn btn-outline-primary" id="smallStepSimulation">Small Step</button>
-    <button class="btn btn-outline-primary" id="minStepSimulation">Minimum step</button>
-    <button class="btn btn-outline-primary" id="reload">Reload</button>
-</div>
-
-
+    <button class="btn btn-outline-primary waves-effect" id="toggleSimulation">Start simulation</button>
+    <button class="btn btn-outline-primary waves-effect" id="stepSimulation"><i class="fas fa-step-forward"></i>&nbsp;Step
+    </button>
+    <button class="btn btn-outline-primary waves-effect" id="smallStepSimulation">Small Step</button>
+    <button class="btn btn-outline-primary waves-effect" id="minStepSimulation">Minimum step</button>
+    <button class="btn btn-outline-primary waves-effect" id="reload"><i class="fas fa-redo-alt"></i>&nbsp;Reload
+    </button>
+    <button class="btn btn-outline-primary waves-effect" id="settings"><i class="fas fa-cog"></i>&nbsp;Settings</button>
 </div>
 
 <script type="text/javascript">
@@ -96,9 +185,7 @@
         window.simulus = simulus;
         simulus.render();
         simulus.displayVars();
-        let shiftPressed = false;
-        let controlPressed = false;
-        let lastMousePosition = null;
+
 
         animationFrameId = null;
 
@@ -127,10 +214,13 @@
         $("#toggleSimulation").on('click', function () {
             if (animationFrameId === null) {
                 animationFrameId = window.requestAnimationFrame(loop);
+
                 $(this).addClass('btn-outline-success').removeClass('btn-outline-danger');
+                $(this).html('<i class="fas fa-play"></i>&nbsp;Simulating');
             } else {
                 window.cancelAnimationFrame(animationFrameId);
                 $(this).addClass('btn-outline-danger').removeClass('btn-outline-success');
+                $(this).html('<i class="fas fa-pause"></i>&nbsp;Paused');
 
                 animationFrameId = null;
             }
@@ -148,113 +238,15 @@
             step(simulus.model.displayedPointRatio);
         });
 
+        $("#settings").on('click', function () {
+            $('#settings-modal').modal('show');
+        });
+
         $("#reload").on('click', function () {
             location.reload();
         });
 
-        $('#draggable').draggable();
 
-        $(window).bind('mousewheel', function (event) {
-
-            if (event.originalEvent.wheelDelta >= 0) {
-                if (shiftPressed) {
-                    if (window.simulus.chart.options.axisY.maximum - window.simulus.chart.options.axisY.minimum < 20) {
-                        window.simulus.chart.options.axisY.minimum += 0.2;
-                        window.simulus.chart.options.axisY.maximum -= 0.2;
-                    } else {
-
-                        window.simulus.chart.options.axisY.minimum += 1;
-                        window.simulus.chart.options.axisY.maximum -= 1;
-                    }
-
-                } else {
-                    if (window.simulus.chart.options.axisX.maximum - window.simulus.chart.options.axisX.minimum < 20) {
-                        window.simulus.chart.options.axisX.minimum += 0.2;
-                        window.simulus.chart.options.axisX.maximum -= 0.2;
-                    } else {
-
-                        window.simulus.chart.options.axisX.minimum += 1;
-                        window.simulus.chart.options.axisX.maximum -= 1;
-                    }
-
-                }
-
-
-            } else {
-                if (shiftPressed) {
-                    window.simulus.chart.options.axisY.minimum -= 1;
-                    window.simulus.chart.options.axisY.maximum += 1;
-                } else {
-                    window.simulus.chart.options.axisX.minimum -= 1;
-                    window.simulus.chart.options.axisX.maximum += 1;
-                }
-
-            }
-            simulus.chart.render();
-
-
-        });
-
-
-        $(document).keydown(function (e) {
-            if (e.keyCode === 16) {
-                shiftPressed = true;
-            }
-            if (e.keyCode === 17) {
-                controlPressed = true;
-            }
-        }).keyup(function (e) {
-            if (e.keyCode === 16) {
-                shiftPressed = false;
-            }
-            if (e.keyCode === 17) {
-                controlPressed = false;
-                lastMousePosition = null;
-            }
-        });
-
-        $('#navigation-modal').modal('show');
-
-
-        $(document).mousemove(function (event) {
-            if (!controlPressed) return;
-            if (lastMousePosition === null) {
-                lastMousePosition = {
-                    x: event.pageX,
-                    y: event.pageY,
-                };
-                return;
-            }
-            if (lastMousePosition.x !== event.pageX) {
-                let scaleDiv = 250;
-                if ((window.simulus.chart.options.axisX.maximum - window.simulus.chart.options.axisX.minimum < 5)) scaleDiv = 600;
-                const diffX = (lastMousePosition.x - event.pageX) / scaleDiv;
-                window.simulus.chart.options.axisX.minimum += diffX;
-                window.simulus.chart.options.axisX.maximum += diffX;
-            }
-            if (lastMousePosition.y !== event.pageY) {
-                let scaleDiv = 100;
-                if ((window.simulus.chart.options.axisY.maximum - window.simulus.chart.options.axisY.minimum < 8)) scaleDiv = 300;
-                const diffY = (lastMousePosition.y - event.pageY) / scaleDiv;
-                window.simulus.chart.options.axisY.minimum -= diffY;
-                window.simulus.chart.options.axisY.maximum -= diffY;
-            }
-
-
-            lastMousePosition = {
-                x: event.pageX,
-                y: event.pageY,
-            };
-            window.simulus.chart.render();
-        });
-
-        $("#draggable").hover(
-            function () {
-                $(this).removeClass("transparent");
-            }, function () {
-                $(this).addClass("transparent");
-            }
-        );
     });
 </script>
 

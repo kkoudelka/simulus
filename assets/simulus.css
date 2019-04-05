@@ -12,6 +12,7 @@ html, body {
 body {
     padding: 10px;
     overflow: hidden;
+    zoom: revert;
 }
 
 .transparent {
